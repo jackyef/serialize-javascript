@@ -68,7 +68,6 @@ module.exports = function serialize(obj, options) {
     var dates     = [];
     var maps      = [];
     var sets      = [];
-    var undefs    = [];
     var infinities= [];
     var bigInts = [];
 
@@ -110,10 +109,6 @@ module.exports = function serialize(obj, options) {
 
         if (type === 'function') {
             return '@__F-' + UID + '-' + (functions.push(origValue) - 1) + '__@';
-        }
-
-        if (type === 'undefined') {
-            return '@__U-' + UID + '-' + (undefs.push(origValue) - 1) + '__@';
         }
 
         if (type === 'number' && !isNaN(origValue) && !isFinite(origValue)) {
@@ -168,11 +163,6 @@ module.exports = function serialize(obj, options) {
     if (options.ignoreFunction && typeof obj === "function") {
         obj = undefined;
     }
-    // Protects against `JSON.stringify()` returning `undefined`, by serializing
-    // to the literal string: "undefined".
-    if (obj === undefined) {
-        return String(obj);
-    }
 
     var str;
 
@@ -197,7 +187,7 @@ module.exports = function serialize(obj, options) {
         str = str.replace(UNSAFE_CHARS_REGEXP, escapeUnsafeChars);
     }
 
-    if (functions.length === 0 && regexps.length === 0 && dates.length === 0 && maps.length === 0 && sets.length === 0 && undefs.length === 0 && infinities.length === 0 && bigInts.length === 0) {
+    if (functions.length === 0 && regexps.length === 0 && dates.length === 0 && maps.length === 0 && sets.length === 0 && infinities.length === 0 && bigInts.length === 0) {
         return str;
     }
 
@@ -226,10 +216,6 @@ module.exports = function serialize(obj, options) {
 
         if (type === 'S') {
             return "new Set(" + serialize(Array.from(sets[valueIndex].values()), options) + ")";
-        }
-
-        if (type === 'U') {
-            return 'undefined'
         }
 
         if (type === 'I') {

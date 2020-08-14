@@ -1,6 +1,10 @@
 Serialize JavaScript
 ====================
 
+> This is a fork of serialize-javascript. The main difference is that it does not serialize `undefined`.
+> Reason for this is that we wanted the security fixes but want to stay on version 1 behavior regarding `undefined` values.
+> It specifically revert this PR in particular https://github.com/yahoo/serialize-javascript/pull/54/files
+
 Serialize JavaScript to a _superset_ of JSON that includes regular expressions, dates and functions.
 
 [![npm Version][npm-badge]][npm]

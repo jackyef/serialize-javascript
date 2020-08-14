@@ -1,5 +1,5 @@
 {
-  "name": "serialize-javascript",
+  "name": "@jackyef/serialize-javascript",
   "version": "4.0.0",
   "description": "Serialize JavaScript to a superset of JSON that includes regular expressions and functions.",
   "main": "index.js",
@@ -32,5 +32,8 @@
   },
   "dependencies": {
     "randombytes": "^2.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
